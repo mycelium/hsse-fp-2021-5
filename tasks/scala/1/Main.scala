@@ -47,7 +47,7 @@ object Main {
    * Exercise 1
    */
   def pascal(c: Int, r: Int): Int = {
-    if (c == 0 | r == c) {
+    if (c == 0 || r == c) {
       return 1
     } else {
       return pascal(c, r-1) + pascal(c-1, r-1)
@@ -85,7 +85,7 @@ object Main {
    * 2 and 3: 2+3.
    */
   def countChange(money: Int, coins: List[Int]): Int = {
-    if (money < 0 | (coins.isEmpty & money > 0)) {
+    if (money < 0 || (coins.isEmpty && money > 0)) {
       return 0
     }
     if (money == 0) {

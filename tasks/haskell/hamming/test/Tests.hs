@@ -101,4 +101,24 @@ cases = [ Case { description = "empty strands"
                , strand2     = "AGTG"
                , expected    = Nothing
                }
+       , Case { description = "disallow first strand empty"
+               , strand1     = ""
+               , strand2     = "AGTG"
+               , expected    = Nothing
+               }
+       , Case { description = "disallow second strand empty"
+               , strand1     = "AGTG"
+               , strand2     = ""
+               , expected    = Nothing
+               }
+       , Case { description = "large distance in first parts strand"
+               , strand1     = "AGTCAGGGGACTGA"
+               , strand2     = "GGATTGAGGACTGA"
+               , expected    = Just 5
+               }
+       , Case { description = "large distance in second parts strand"
+               , strand1     = "GGACTGAAGTCAGG"
+               , strand2     = "GGACTGAGGATTGA"
+               , expected    = Just 5
+               }
         ]

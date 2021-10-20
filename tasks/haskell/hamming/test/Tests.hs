@@ -31,6 +31,11 @@ cases = [ Case { description = "empty strands"
                , strand2     = ""
                , expected    = Just 0
                }
+        , Case { description = "one empty strand and one single"
+               , strand1     = "A"
+               , strand2     = ""
+               , expected    = Nothing
+               }
         , Case { description = "identical strands"
                , strand1     = "A"
                , strand2     = "A"

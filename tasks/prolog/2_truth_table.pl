@@ -10,3 +10,37 @@
 % true fail true
 % fail true fail
 % fail fail fail
+
+or(A, B) :- A; B.
+and(A, B) :- A, B.
+xor(A, B) :- (not(A), B); (A, not(B)).
+equ(A, B) :- A = B.
+
+boolean(true).
+boolean(false).
+
+truth_table(A, B, Expression) :- 
+	boolean(A),
+	boolean(B),
+	write(A), write('\t'), 
+	write(B), write('\t'),
+	(Expression -> writeln(true); writeln(false)), 
+	fail. 
+
+% ?- truth_table(A, B, and(A, B)).
+% true    true    true
+% true    false   false
+% false   true    false
+% false   false   false
+
+% ?- truth_table(A, B, and(equ(A, B), not(B))). 
+% true    true    false
+% true    false   false
+% false   true    false
+% false   false   true
+
+% ?- truth_table(A, B, not(xor(A, B))).         
+% true    true    true
+% true    false   false
+% false   true    false
+% false   false   true

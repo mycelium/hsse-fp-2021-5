@@ -5,9 +5,9 @@ qsort(L, K) :-
     L = [Pivot|_], %choose pivot
     split_list(L, Pivot, Left, PivotList, Right),
     qsort(Left, Lsorted),
-    qsort(Right, Hsorted),
+    qsort(Right, Rsorted),
     append(Lsorted, PivotList, LeftPart),
-    append(LeftPart, Hsorted, K).
+    append(LeftPart, Rsorted, K).
 qsort([],[]).
 
 % args: List, pivot elem, 3 target lists
@@ -17,8 +17,8 @@ split_list([Head|Tail], Pivot, Left, PivotList, Right) :-
     append(Nl, [Head], Left).
 split_list([Head|Tail], Pivot, Left, PivotList, Right) :-
     Head > Pivot,
-    split_list(Tail, Pivot, Left, PivotList, Nh),
-    append(Nh, [Head], Right).
+    split_list(Tail, Pivot, Left, PivotList, Nr),
+    append(Nr, [Head], Right).
 split_list([Head|Tail], Pivot, Left, PivotList, Right) :-
     split_list(Tail, Pivot, Left, Npl, Right),
     append(Npl, [Head], PivotList).

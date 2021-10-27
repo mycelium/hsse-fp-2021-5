@@ -1,5 +1,7 @@
 package forcomp
 
+import common._
+
 object Anagrams {
 
   /** A word is simply a `String`. */
@@ -103,15 +105,17 @@ object Anagrams {
   def combinations(occurrences: Occurrences): List[Occurrences] = {
     occurrences match {
       case Nil => List(List())
+      case List() => List(List())
       case head :: Nil if head._2 == 1 => List(occurrences)
       case head :: Nil => occurrences :: combinations(List((head._1, head._2 - 1)))
       case head :: tail =>
-        val newHead = combinations(List(head))
-        val newTail = combinations(tail)
-        val res = List(Nil) ++ newHead ++ newTail ++ newHead.flatMap(z => newTail.map(e => z ++ e))
+        val combinationsFromHead = combinations(List(head))
+        val combinationsWithTail = combinations(tail)
+        val res = List(Nil) ++ combinationsFromHead ++ combinationsWithTail ++ combinationsFromHead.flatMap(z => combinationsWithTail.map(e => z ++ e))
         res.distinct
     }
   }
+
 
   /** Subtracts occurrence list `y` from occurrence list `x`.
    *
@@ -124,10 +128,7 @@ object Anagrams {
    * and has no zero-entries.
    */
   def subtract(x: Occurrences, y: Occurrences): Occurrences = {
-    x.map(xElem => {
-      val i = y.find(p => p._1 == xElem._1).getOrElse((xElem._1, 0))
-      (xElem._1, xElem._2 - i._2)
-    })
+    x.map(xElem => (xElem._1, xElem._2 - y.toMap.getOrElse(xElem._1, 0)))
       .filter(xElem => xElem._2 > 0)
       .sorted
   }
@@ -184,15 +185,4 @@ object Anagrams {
 
     anagramHelper(sentenceOccurrences(sentence))
   }
-
-  def main(args: Array[String]): Unit = {
-    var listOfWords = List("qweee", "ww")
-    println(sentenceOccurrences(listOfWords))
-    var comb = List(('a', 2), ('b', 2))
-    println(combinations(comb))
-    var x = List(('a', 2), ('b', 2))
-    var y = List(('b', 1))
-    println(subtract(x, y))
-  }
-
 }

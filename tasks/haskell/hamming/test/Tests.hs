@@ -101,4 +101,39 @@ cases = [ Case { description = "empty strands"
                , strand2     = "AGTG"
                , expected    = Nothing
                }
+        , Case { description = "First string is empty."
+               , strand1     = ""
+               , strand2     = "AGTG"
+               , expected    = Nothing
+               }
+        , Case { description = "Second string is empty."
+               , strand1     = "ATA"
+               , strand2     = ""
+               , expected    = Nothing
+               }
+        , Case { description = "First string contains digits."
+               , strand1     = "B11"
+               , strand2     = "BAA"
+               , expected    = Nothing
+               }
+        , Case { description = "Second string contains digits."
+               , strand1     = "BAB"
+               , strand2     = "B22"
+               , expected    = Nothing
+               }
+        , Case { description = "Both strings consist of digits"
+               , strand1     = "111"
+               , strand2     = "222"
+               , expected    = Nothing
+               }
+        , Case { description = "First string contains lower case char."
+               , strand1     = "Bab"
+               , strand2     = "BAB"
+               , expected    = Nothing
+               }
+        , Case { description = "Second string contains lower case char."
+               , strand1     = "BAB"
+               , strand2     = "Bab"
+               , expected    = Nothing
+               }
         ]

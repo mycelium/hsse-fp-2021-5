@@ -15,3 +15,22 @@
 	?- cousin(X,Y).
 	?- grandson(X,Y).
 	?- descendent(X,Y).
+
+father(q,a).
+father(q,b).
+father(a,r).
+father(a,c).
+father(b,d).
+father(b,e).
+father(c,f).
+
+% a is brother of b.
+% b is cousin of d.
+% b is granson of q.
+
+
+brother(X,Y):- father(P,X), father(P,Y).
+cousin(X,Y):- father(P,Y), father(D,X),P\=D, brother(P,D).
+grandson(X,Y):- father(P,X), father(Y,A), P=A.
+descendent(X,Y):- father(Y,X).
+descendent(X,Y):- father(P,X),descendent(P,Y).

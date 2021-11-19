@@ -10,3 +10,45 @@
 % true fail true
 % fail true fail
 % fail fail fail
+
+and(A, B) :- A, B.
+or(A, B) :- A ; B.
+xor(A, B) :- \+ A, \+ B.
+not(A) :- \+ A.
+equ(A, B) :- A = B.
+
+bool(true).
+bool(false).
+
+evaluate(E, true) :- E, !.
+evaluate(_, false).
+
+truth_table(A, B, Expression) :-
+   bool(A),
+   bool(B),
+   write(A),
+   write('\t'),
+   write(B),
+   write('\t'),
+   evaluate(Expression, Res),
+   write(Res), nl, fail.
+
+% Examples
+
+% ?- truth_table(A, B, or(not(A), and(A, B))).
+% true    true    true
+% true    false   false
+% false   true    true
+% false   false   true
+
+% ?- truth_table(A, B, or(xor(A, not(B)),equ(A, B))).
+% true    true    true
+% true    false   false
+% false   true    true
+% false   false   true
+
+% ?- truth_table(A, B, and(and(not(A), equ(A, B)), and(xor(A, B), B))).
+% true    true    false
+% true    false   false
+% false   true    false
+% false   false   false

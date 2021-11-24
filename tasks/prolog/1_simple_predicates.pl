@@ -15,7 +15,7 @@
 	brother(X,Y):- father(Z,X), father(Z,Y), not(X = Y).
 	
 	% 2.
-	
+	cousin(X,Y):- father(Z,X), father(J,Y), brother(Z,J).
 
 % указать в каком порядке и какие ответы генерируются вашими методами
 	% ?- brother(X,Y).
@@ -33,5 +33,17 @@
 	% Y = e ;
 	% X = e,
 	% Y = d ;
+	% false.
+
+	% 2.
+	% ?- cousin(X,Y).
+	% X = d,
+	% Y = f ;
+	% X = e,
+	% Y = f ;
+	% X = f,
+	% Y = d ;
+	% X = f,
+	% Y = e ;
 	% false.
 	

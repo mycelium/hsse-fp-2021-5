@@ -18,7 +18,11 @@
 	cousin(X,Y):- father(Z,X), father(J,Y), brother(Z,J).
 	
 	% 3.
-	grandson(X,Y):- father(Y,Z), father(Z,X). 
+	grandson(X,Y):- father(Y,Z), father(Z,X).
+	
+	% 4.
+	descendent(X,Y):- father(Y,X).
+	descendent(X,Y):- father(Z,X), descendent(Z,Y).
 
 % указать в каком порядке и какие ответы генерируются вашими методами
 	% ?- brother(X,Y).
@@ -59,4 +63,23 @@
 	% X = f,
 	% Y = a ;
 	% false.
-	
+
+	% 4.
+	% ?- descendent(X,Y).
+	% X = b,
+	% Y = a ;
+	% X = c,
+	% Y = a ;
+	% X = d,
+	% Y = b ;
+	% X = e,
+	% Y = b ;
+	% X = f,
+	% Y = c ;
+	% X = d,
+	% Y = a ;
+	% X = e,
+	% Y = a ;
+	% X = f,
+	% Y = a ;
+	% false.

@@ -24,3 +24,38 @@ boolean(fail).
 truth_table(A,B,Expression):- boolean(A), boolean(B), write(A), write(' '), write(B), write(' '), eval(Expression, X), write(X), nl, fail.
 eval(Expression, true) :- Expression, !.
 eval(Expression, fail).
+
+% ?- truth_table(A,B,xor(A,B)).
+% true true fail
+% true fail true
+% fail true true
+% fail fail fail
+% false.
+
+% ?- truth_table(A,B,equ(A,B)).
+% true true true
+% true fail fail
+% fail true fail
+% fail fail true
+% false.
+
+% ?- truth_table(A,B,or(not(A),B)).
+% true true true
+% true fail fail
+% fail true true
+% fail fail true
+% false.
+
+% ?- truth_table(A,B,and(or(not(A),B),A)).
+% true true true
+% true fail fail
+% fail true fail
+% fail fail fail
+% false.
+
+% ?- truth_table(A,B,equ(and(or(not(A),B),A),not(B))).
+% true true fail
+% true fail fail
+% fail true true
+% fail fail fail
+% false.

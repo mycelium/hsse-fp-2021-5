@@ -1,5 +1,5 @@
 package recfun
-import common._
+import scala.annotation.tailrec
 
 object Main {
   def main(args: Array[String]) {
@@ -16,6 +16,7 @@ object Main {
    */
   def pascal(c: Int, r: Int): Int = {
     assert(c <= r, "Column shouldn't be grater than row")
+    assert(c >= 0 || r >= 0, "Column or row shouldn't be less than zero")
     if (c == 0 || r == c) 1
     else pascal(c - 1, r - 1) + pascal(c, r - 1)
   }
@@ -24,10 +25,11 @@ object Main {
    * Exercise 2 Parentheses Balancing
    */
   def balance(chars: List[Char]): Boolean = {
+    @tailrec
     def countParentheses(chars: List[Char], acc: Int = 0): Boolean = {
       if (chars.isEmpty) acc == 0
-      else if ("(".contains(chars.head)) countParentheses(chars.tail, acc + 1)
-      else if (")".contains(chars.head)) acc > 0 && countParentheses(chars.tail, acc - 1)
+      else if (chars.head.equals('(')) countParentheses(chars.tail, acc + 1)
+      else if (chars.head.equals(')')) acc > 0 && countParentheses(chars.tail, acc - 1)
       else countParentheses(chars.tail, acc)
     }
 

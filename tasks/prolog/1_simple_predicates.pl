@@ -15,3 +15,24 @@
 	?- cousin(X,Y).
 	?- grandson(X,Y).
 	?- descendent(X,Y).
+	
+	
+brother(X,Y) :- father(Z,X), father(Z,Y), X \= Y.
+cousin(X,Y) :- father(W,X), father(Z,Y), brother(W,Z).
+grandson(X,Y) :- father(Y,Z), father(Z,X).	
+descendent(X,Y) :- father(Y,X).
+descendent(X,Y) :- father(Y,Z), descendent(X,Z).
+
+
+% ?- bagof([X,Y],brother(X,Y),P).
+% P = [[b, c], [c, b], [d, e], [e, d]].
+% То есть: X=b, Y=c;  X=c, Y=b;  X=d, Y=e;  X=e, Y=d;  
+
+% ?- bagof([X,Y],cousin(X,Y),P).
+% P = [[d, f], [e, f], [f, d], [f, e]].
+
+% ?- bagof([X,Y],grandson(X,Y),P).
+% P = [[d, a], [e, a], [f, a]].
+
+% ?- bagof([X,Y],descendent(X,Y),P).
+% P = [[b,a],[c,a],[d,b],[e,b],[f,c],[d,a],[e,a],[f,a]].

@@ -10,8 +10,28 @@
 	father(b,d).  % 3
 	father(b,e).  % 4
 	father(c,f).  % 5
+	
+	% 1.
+	brother(X,Y):- father(Z,X), father(Z,Y), not(X = Y).
+	
+	% 2.
+	
+
 % указать в каком порядке и какие ответы генерируются вашими методами
-	?- brother(X,Y).
-	?- cousin(X,Y).
-	?- grandson(X,Y).
-	?- descendent(X,Y).
+	% ?- brother(X,Y).
+	% ?- cousin(X,Y).
+	% ?- grandson(X,Y).
+	% ?- descendent(X,Y).
+	
+	% 1. 
+	% ?- brother(X,Y).
+	% X = b,
+	% Y = c ;
+	% X = c,
+	% Y = b ;
+	% X = d,
+	% Y = e ;
+	% X = e,
+	% Y = d ;
+	% false.
+	

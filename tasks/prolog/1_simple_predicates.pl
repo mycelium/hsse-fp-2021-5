@@ -15,3 +15,56 @@
 	?- cousin(X,Y).
 	?- grandson(X,Y).
 	?- descendent(X,Y).
+
+	brother(X,Y):- father(P,X), father(P,Y), X \= Y.
+    cousin(X,Y):- father(P,Y), father(D,X),P\=D, brother(P,D).
+    grandson(X,Y):- father(P,X), father(Y,P).
+    descendent(X,Y):- father(Y,X); grandson(Y,X).
+
+    ሀ?- brother(X,Y).
+X = b,
+Y = c ;
+X = c,
+Y = b ;
+X = d,
+Y = e ;
+X = e,
+Y = d ;
+false.
+
+?- cousin(X,Y).
+X = f,
+Y = d ;
+X = f,
+Y = e ;
+X = d,
+Y = f ;
+X = e,
+Y = f ;
+false.
+
+?- grandson(X,Y).
+X = d,
+Y = a ;
+X = e,
+Y = a ;
+X = f,
+Y = a.
+
+?- descendent(X,Y).
+X = b,
+Y = a ;
+X = c,
+Y = a ;
+X = d,
+Y = b ;
+X = e,
+Y = b ;
+X = f,
+Y = c ;
+X = a,
+Y = d ;
+X = a,
+Y = e ;
+X = a,
+Y = f.

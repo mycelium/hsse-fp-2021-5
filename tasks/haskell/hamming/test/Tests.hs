@@ -101,4 +101,9 @@ cases = [ Case { description = "empty strands"
                , strand2     = "AGTG"
                , expected    = Nothing
                }
+       , Case { description = "very large distance"
+               , strand1     = "CAGCAGACCATGATACTGTGTACGCACCAGATCAACATGCTACGGTACCGAGAATGAAA"
+               , strand2     = "CTAAGTCTACCATGTGACATAGAATGTACCCGATCATCATACTACCTGGACATTGAGTA"
+               , expected    = Just 57
+               }
         ]

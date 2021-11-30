@@ -14,8 +14,21 @@ object Main {
   /**
    * Exercise 1
    */
-  def pascal(c: Int, r: Int): Int = {
-
+  def pascal(c: Int, r: Int): Int = 
+  {
+      if(c<0||r<0)
+    {
+    throw new IllegalArgumentException("c and r must be greater than 0. ")
+    }
+    else if(c>r)
+    {
+    throw new IllegalArgumentException("r must be greather than c.")
+    }
+    if(c==0 || c ==r) 1
+    else
+    {
+    pascal(c-1,r-1)+pascal(c,r-1)
+    }
   }
 
   /**

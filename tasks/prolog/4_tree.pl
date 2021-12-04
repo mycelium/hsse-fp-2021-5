@@ -20,3 +20,5 @@ tree(K,instant(ROOT,L,R)):- divide_tree(K,LT,[ROOT|RT]), tree(LT,L), tree(RT,R).
 % Пустое бинарное дерево всегда сбалансированное.
 balanced_tree([],T).
 balanced_tree(L,T):- qsort(L,K), tree(K,T).
+
+

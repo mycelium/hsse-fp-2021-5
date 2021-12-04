@@ -21,4 +21,32 @@ tree(K,instant(ROOT,L,R)):- divide_tree(K,LT,[ROOT|RT]), tree(LT,L), tree(RT,R).
 balanced_tree([],T).
 balanced_tree(L,T):- qsort(L,K), tree(K,T).
 
-
+% ?- balanced_tree([4,1,9,5,8],T).
+% T = instant(5, instant(4, instant(1, empty, empty), empty), instant(9, instant(8, empty, empty), empty)) .
+%               ┌ -
+%          ┌ 1 ─┤
+%    ┌─ 4 ─┤    └ -
+%    │     └ -
+% 5 ─┤          ┌ -
+%    │     ┌ 8 ─┤
+%    └─ 9 ─┤    └ -
+%          └ -
+   
+% ?- balanced_tree([90,12,0,1,1,25,89,90],T).
+% T = instant(25, instant(1, instant(1, instant(0, empty, empty), empty), instant(12, empty, empty)), instant(90, instant(89, empty, empty), instant(90, empty, empty))) .
+%                       ┌ -
+%                  ┌ 0 ─┤
+%            ┌  1 ─┤    └ -
+%            │     └ - 
+%     ┌─  1 ─┤
+%     │      │     ┌ -   
+%     │      └ 12 ─┤
+%     │            └ - 
+% 25 ─┤          
+%     │            ┌ -
+%     │      ┌ 89 ─┤
+%     │      │     └ -
+%     └─ 90 ─┤
+%            │     ┌ -
+%            └ 90 ─┤
+%                  └ -

@@ -34,9 +34,21 @@ object Main {
   /**
    * Exercise 2 Parentheses Balancing
    */
-  def balance(chars: List[Char]): Boolean = {
-   
-  }
+  def balance(chars: List[Char]): Boolean =
+  {
+    def IndexParth(chars:List[Char],ParthBalance:int):int=
+    {
+        if(chars.isEmpty||ParthBalance<0) 
+        parthBalance
+        else if(chars.begin == ')') 
+        IndexParth(char.end,ParthBalance -1)
+        else if(chars.begin =='(')
+        IndexParth(char.end,ParthBalance +1)
+        else
+        IndexParth(char.end,ParthBalance)
+    }
+    IndexParth(voicechars ,0) ==0
+   }
 
   /**
    * Exercise 3 Counting Change
@@ -45,7 +57,14 @@ object Main {
    * there is 1 way to give change for 5 if you have coins with denomiation
    * 2 and 3: 2+3.
    */
-  def countChange(money: Int, coins: List[Int]): Int = {
-
+  def countChange(money: Int, coins: List[Int]): Int = 
+  {
+  def change(money：Int,coins:List[Int]):Int =
+    {
+        if (money < 0||coins.isEmpty) 0
+        else if(money == 0) 1
+        else change(money,coins.end)+change(money-coins.begin,coins)
+     }
+    change(money,coins)
   }
 }

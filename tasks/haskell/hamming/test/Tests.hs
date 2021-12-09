@@ -31,6 +31,11 @@ cases = [ Case { description = "empty strands"
                , strand2     = ""
                , expected    = Just 0
                }
+        , Case { description = "disallow one strand empty"
+               , strand1     = ""
+               , strand2     = "A"
+               , expected    = Nothing
+               }
         , Case { description = "identical strands"
                , strand1     = "A"
                , strand2     = "A"
@@ -100,5 +105,15 @@ cases = [ Case { description = "empty strands"
                , strand1     = "ATA"
                , strand2     = "AGTG"
                , expected    = Nothing
+               }
+        , Case { description = "large inverted palindromes"
+               , strand1     = "AAATGTAAA"
+               , strand2     = "TTTGAGTTT"
+               , expected    = Just 9
+               }
+        , Case { description = "large partially inverted palindromes"
+               , strand1     = "AAAGTGAAA"
+               , strand2     = "TTTGAGTTT"
+               , expected    = Just 7
                }
         ]

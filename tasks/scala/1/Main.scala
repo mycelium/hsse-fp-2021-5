@@ -49,7 +49,7 @@ object Main {
     def rec_change(money: Int, coins: List[Int]): Int = {
       if (money < 0 || coins.isEmpty) return 0
       if (money == 0) return 1
-      return rec_change(money, coins.tail) + change(money-coins.head, coins)
+      return rec_change(money, coins.tail) + rec_change(money-coins.head, coins)
     }
     return rec_change(money, coins)
   }

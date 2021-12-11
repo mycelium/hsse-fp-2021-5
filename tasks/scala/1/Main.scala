@@ -17,6 +17,10 @@ object Main {
     println(balance("((1 + 1))".toList))
     println(balance("(1 + 1))".toList))
     println(balance("((1 + 1)".toList))
+    println(balance("{1 + 1)".toList))
+    println(balance("]1 + 1)".toList))
+    println(balance("[1 + 1]".toList))
+    println(balance("{1 + 1}".toList))
   }
 
   /**
@@ -58,7 +62,9 @@ object Main {
   }
 
   def balance(chars: List[Char]): Boolean = {
-      calculOfDelta(chars, '(', ')', 0) == 0
+      calculOfDelta(chars, '(', ')', 0) == 0 
+      && calculOfDelta(chars, '[', ']', 0) == 0
+      && calculOfDelta(chars, '{', '}', 0) == 0
   }
 
   /**
@@ -73,6 +79,10 @@ object Main {
      true
      false
      false
+     false
+     false
+     true
+     true
    */
 
 }

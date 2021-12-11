@@ -7,6 +7,10 @@ object Main {
       println()
     }
     println("Balance of brackets")
+    println(balance("1 + 1".toList))
+    println(balance(")1 + 1)".toList))
+    println(balance("(1 + 1(".toList))
+    println(balance(")1 + 1(".toList))
     println(balance("(1 + 1)".toList))
     println(balance("1 + 1)".toList))
     println(balance("(1 + 1".toList))
@@ -43,14 +47,32 @@ object Main {
    * Exercise 2 Parentheses Balancing
    */
   
-  def calculOfCount(chars: List[Char], symbol: Char, count: Int): Int = {
-     if (chars.isEmpty) count
-     else if (chars.head == symbol) calculOfCount(chars.tail, symbol, count + 1)
-     else calculOfCount(chars.tail, symbol, count)
+  def calculOfDelta(chars: List[Char], open: Char, close: Char, delta: Int): Int = {
+     if (chars.isEmpty) delta
+     else if (chars.head == open) calculOfDelta(chars.tail, open, close, delta + 1)
+     else if (chars.head == close) {
+       if (delta > 0) calculOfDelta(chars.tail, open, close, delta - 1)
+       else -1
+     }
+     else calculOfDelta(chars.tail, open, close, delta)
   }
 
   def balance(chars: List[Char]): Boolean = {
-      calculOfCount(chars, '(', 0) == calculOfCount(chars, ')', 0)
+      calculOfDelta(chars, '(', ')', 0) == 0
   }
+
+  /**
+     Balance of brackets
+     true
+     false
+     false
+     false
+     true
+     false
+     false
+     true
+     false
+     false
+   */
 
 }

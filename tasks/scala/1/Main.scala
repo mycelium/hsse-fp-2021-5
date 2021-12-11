@@ -56,17 +56,19 @@ object Main {
   /**
    * Exercise 2 Parentheses Balancing
    */
-  def calculOfDelta(chars: List[Char], open: Char, close: Char, delta: Int): Int = {
-    if (chars.isEmpty) delta
-    else if (chars.head == open) calculOfDelta(chars.tail, open, close, delta + 1)
-    else if (chars.head == close) {
-      if (delta > 0) calculOfDelta(chars.tail, open, close, delta - 1)
-      else -1
-    }
-    else calculOfDelta(chars.tail, open, close, delta)
-  }
-
   def balance(chars: List[Char]): Boolean = {
+    /**
+    "Внутренняя функция" или локальная функция для рекурсивного вычисления разности количества открытых и закрытых скобок
+    */
+    def calculOfDelta(chars: List[Char], open: Char, close: Char, delta: Int): Int = {
+      if (chars.isEmpty) delta
+      else if (chars.head == open) calculOfDelta(chars.tail, open, close, delta + 1)
+      else if (chars.head == close) {
+        if (delta > 0) calculOfDelta(chars.tail, open, close, delta - 1)
+        else -1
+      }
+      else calculOfDelta(chars.tail, open, close, delta)
+    }
     calculOfDelta(chars, '(', ')', 0) == 0 
     && calculOfDelta(chars, '[', ']', 0) == 0
     && calculOfDelta(chars, '{', '}', 0) == 0

@@ -6,6 +6,13 @@ object Main {
         print(pascal(col, row) + " ")
       println()
     }
+    println("Balance of brackets")
+    println(balance("(1 + 1)".toList))
+    println(balance("1 + 1)".toList))
+    println(balance("(1 + 1".toList))
+    println(balance("((1 + 1))".toList))
+    println(balance("(1 + 1))".toList))
+    println(balance("((1 + 1)".toList))
   }
 
   /**
@@ -31,4 +38,19 @@ object Main {
      1 9 36 84 126 126 84 36 9 1
      1 10 45 120 210 252 210 120 45 10 1
    */
+  
+  /**
+   * Exercise 2 Parentheses Balancing
+   */
+  
+  def calculOfCount(chars: List[Char], symbol: Char, count: Int): Int = {
+     if (chars.isEmpty) count
+     else if (chars.head == symbol) calculOfCount(chars.tail, symbol, count + 1)
+     else calculOfCount(chars.tail, symbol, count)
+  }
+
+  def balance(chars: List[Char]): Boolean = {
+      calculOfCount(chars, '(', 0) == calculOfCount(chars, ')', 0)
+  }
+
 }

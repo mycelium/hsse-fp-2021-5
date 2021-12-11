@@ -21,6 +21,12 @@ object Main {
     println(balance("]1 + 1)".toList))
     println(balance("[1 + 1]".toList))
     println(balance("{1 + 1}".toList))
+    println("Counting change")
+    println(countChange(5, List()))
+    println(countChange(2, List(5)))
+    println(countChange(5, List(2, 3)))
+    println(countChange(3, List(1, 2)))
+    println(countChange(5, List(1, 2, 3)))
   }
 
   /**
@@ -50,21 +56,20 @@ object Main {
   /**
    * Exercise 2 Parentheses Balancing
    */
-  
   def calculOfDelta(chars: List[Char], open: Char, close: Char, delta: Int): Int = {
-     if (chars.isEmpty) delta
-     else if (chars.head == open) calculOfDelta(chars.tail, open, close, delta + 1)
-     else if (chars.head == close) {
-       if (delta > 0) calculOfDelta(chars.tail, open, close, delta - 1)
-       else -1
-     }
-     else calculOfDelta(chars.tail, open, close, delta)
+    if (chars.isEmpty) delta
+    else if (chars.head == open) calculOfDelta(chars.tail, open, close, delta + 1)
+    else if (chars.head == close) {
+      if (delta > 0) calculOfDelta(chars.tail, open, close, delta - 1)
+      else -1
+    }
+    else calculOfDelta(chars.tail, open, close, delta)
   }
 
   def balance(chars: List[Char]): Boolean = {
-      calculOfDelta(chars, '(', ')', 0) == 0 
-      && calculOfDelta(chars, '[', ']', 0) == 0
-      && calculOfDelta(chars, '{', '}', 0) == 0
+    calculOfDelta(chars, '(', ')', 0) == 0 
+    && calculOfDelta(chars, '[', ']', 0) == 0
+    && calculOfDelta(chars, '{', '}', 0) == 0
   }
 
   /**
@@ -84,5 +89,27 @@ object Main {
      true
      true
    */
+  
+  /**
+   * Exercise 3 Counting Change
+   * Write a recursive function that counts how many different ways you can make
+   * change for an amount, given a list of coin denominations. For example,
+   * there is 1 way to give change for 5 if you have coins with denomiation
+   * 2 and 3: 2+3.
+   */
+  def countChange(money: Int, coins: List[Int]): Int = {
+    if (coins.isEmpty && money > 0) 0
+    else if (money == 0) 1
+    else if (money > 0) countChange(money - coins.head, coins) + countChange(money, coins.tail)
+    else 0
+  }
 
+  /**
+     Counting change
+     0
+     0
+     1
+     2
+     5
+   */
 }

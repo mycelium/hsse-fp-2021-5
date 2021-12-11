@@ -10,3 +10,19 @@
 % true fail true
 % fail true fail
 % fail fail fail
+and(A,B) :- A,B.
+or(A,B) :- A;B.
+xor(A,B):-A \= B.
+not(A):- /+A.
+equ(A,B):- A=B.
+
+bool(true).
+bool(false).
+
+truth_table(A, B, Expression) :-
+	bool(A),bool(B),
+	write(A),write("\t"),
+	write(B),write("\t"),
+    	write(Expression),write(" "),
+	(Expression -> write(true); write(fail)),
+	writeln(""),false. 

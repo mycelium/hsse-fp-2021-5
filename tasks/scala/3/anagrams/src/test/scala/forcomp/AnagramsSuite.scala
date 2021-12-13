@@ -106,3 +106,24 @@ class AnagramsSuite extends FunSuite {
   }  
 
 }
+
+/**
+     AnagramsSuite:
+     - wordOccurrences: abcd
+     - wordOccurrences: Robert
+     - sentenceOccurrences: abcd e
+     - dictionaryByOccurrences.get: eat
+     - word anagrams: married
+     - word anagrams: player
+     - subtract: lard - r
+     - combinations: []
+     - combinations: abba
+     - sentence anagrams: []
+     - sentence anagrams: Linux rulez
+     Run completed in 1 second, 329 milliseconds.
+     Total number of tests run: 11
+     Suites: completed 1, aborted 0
+     Tests: succeeded 11, failed 0, canceled 0, ignored 0, pending 0
+     All tests passed.
+     Total time: 9 s, completed 13.12.2021 18:34:11
+*/

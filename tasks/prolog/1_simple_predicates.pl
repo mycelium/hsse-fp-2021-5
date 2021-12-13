@@ -1,7 +1,7 @@
 % есть набор фактов вида father(person1, person2) (person1 is the father of person2)
 % Необходимо определить набор предикатов:
 % 1. brother(X,Y)    -  определяющий являются ли аргументы братьями
-    brother(X,Y) :- father(Z, X), father(Z, Y).
+    brother(X,Y) :- father(Z, X), father(Z, Y), Z \= Y.
 % 2. cousin(X,Y)     -  определяющий являются ли аргументы двоюродными братьями
     cousin(X,Y) :- brother(A,Z), father(A, X), father(Z, Y).
 % 3. grandson(X,Y)   -  определяющий является ли аргумент Х внуком аргумента Y

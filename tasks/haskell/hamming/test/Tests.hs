@@ -32,8 +32,8 @@ cases = [ Case { description = "empty strands"
                , expected    = Just 0
                }
         , Case { description = "identical strands"
-               , strand1     = "A"
-               , strand2     = "A"
+               , strand1     = "B"
+               , strand2     = "B"
                , expected    = Just 0
                }
         , Case { description = "long identical strands"
@@ -81,6 +81,11 @@ cases = [ Case { description = "empty strands"
                , strand2     = "GAT"
                , expected    = Just 2
                }
+        , Case { description = "first is empty and second with data"
+               , strand1     = ""
+               , strand2     = "TAG"
+               , expected    = Nothing
+               }
         , Case { description = "large distance"
                , strand1     = "GATACA"
                , strand2     = "GCATAA"
@@ -98,7 +103,7 @@ cases = [ Case { description = "empty strands"
                }
         , Case { description = "disallow second strand longer"
                , strand1     = "ATA"
-               , strand2     = "AGTG"
+               , strand2     = "AGTD"
                , expected    = Nothing
                }
         ]

@@ -101,4 +101,19 @@ cases = [ Case { description = "empty strands"
                , strand2     = "AGTG"
                , expected    = Nothing
                }
+        , Case { description = "First personal test: equal shards until certain moment"
+               , strand1     = "TAGGATCATCCCCC"
+               , strand2     = "TAGGATCATAAAAA"
+               , expected    = Just 5
+               }
+        , Case { description = "Second personal test: equal shards in the end"
+               , strand1     = "GGGGTAGTAC"
+               , strand2     = "TTTTTAGTAC"
+               , expected    = Just 4
+               }
+        , Case { description = "Not eqial nucleotide strands in the middle"
+               , strand1     = "TACGTGG"
+               , strand2     = "TACATGG"
+               , expected    = Just 1
+               }
         ]

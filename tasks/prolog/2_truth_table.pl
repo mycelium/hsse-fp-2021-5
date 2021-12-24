@@ -10,3 +10,22 @@
 % true fail true
 % fail true fail
 % fail fail fail
+
+
+and(A, B) :- A, B.
+or(A, B) :- A; B.
+xor(A, B) :- (not(A), B) ; (A, not(B)).
+equ(A, B) :- A == B.
+
+boolean(true).
+boolean(fail).
+
+truth_table(A, B, Expression) :- boolean(A), boolean(B), (write(A), write(" "), write(B), write(" ")),(Expression -> write("true"); write("fail")), nl, fail.
+
+
+%?- truth_table(A,B,and(A,or(A,B))).
+%true true true
+%true fail true
+%fail true fail
+%fail fail fail
+%false.

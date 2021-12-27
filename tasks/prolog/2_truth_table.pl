@@ -20,14 +20,6 @@
 % fail true fail
 % fail fail fail
 
-and(A, B) :- A, B.
-or(A, _) :- A.
-or(_, B) :- B.
-xor(A, B) :- A, not(B).
-xor(A, B) :- not(A), B.
-equ(A, B) :- and(A, B).
-equ(A, B) :- and(not(A), not(B)).
-
 boolean(true).
 boolean(fail).
 

@@ -33,10 +33,13 @@ object Anagrams {
    *  Note: the uppercase and lowercase version of the character are treated as the
    *  same character, and are represented as a lowercase character in the occurrence list.
    */
-  def wordOccurrences(w: Word): Occurrences = ???
+  def wordOccurrences(w: Word): Occurrences = {
+    // map by individual char, remap by char and count, return as sorted list
+    w.toLowerCase.groupBy(char => char).map(char => (char._1, char._2.length)).toList.sorted
+  }
 
   /** Converts a sentence into its character occurrence list. */
-  def sentenceOccurrences(s: Sentence): Occurrences = ???
+  def sentenceOccurrences(s: Sentence): Occurrences = wordOccurrences(s.mkString)
 
   /** The `dictionaryByOccurrences` is a `Map` from different occurrences to a sequence of all
    *  the words that have that occurrence count.
@@ -53,10 +56,10 @@ object Anagrams {
    *    List(('a', 1), ('e', 1), ('t', 1)) -> Seq("ate", "eat", "tea")
    *
    */
-  lazy val dictionaryByOccurrences: Map[Occurrences, List[Word]] = ???
+  lazy val dictionaryByOccurrences: Map[Occurrences, List[Word]] = dictionary.groupBy(wordOccurrences)
 
   /** Returns all the anagrams of a given word. */
-  def wordAnagrams(word: Word): List[Word] = ???
+  def wordAnagrams(word: Word): List[Word] = dictionaryByOccurrences(wordOccurrences(word))
 
   /** Returns the list of all subsets of the occurrence list.
    *  This includes the occurrence itself, i.e. `List(('k', 1), ('o', 1))`
@@ -80,7 +83,16 @@ object Anagrams {
    *  Note that the order of the occurrence list subsets does not matter -- the subsets
    *  in the example above could have been displayed in some other order.
    */
-  def combinations(occurrences: Occurrences): List[Occurrences] = ???
+  def combinations(occurrences: Occurrences): List[Occurrences] = {
+    // ocs maps List(('a', 2), ('b', 2)) to List(('a', 1)), List(('a', 2)), List(('b', 1)), List(('b', 2))
+    val ocs: List[Occurrences] = (occurrences
+                                    .map(occurence => (1 to occurence._2)
+                                                      .map(o => (occurence._1, o))
+                                                      .toList))
+    // starting with Nil, fold others making pairs (for each l in l1 m in l2 l + m)
+    ocs.foldLeft(List[Occurrences](Nil))((l1, l2) =>
+        l1 ::: (for (elem1 <- l1; elem2 <- l2) yield elem1 ::: List(elem2)))
+}
 
   /** Subtracts occurrence list `y` from occurrence list `x`.
    * 
@@ -92,7 +104,15 @@ object Anagrams {
    *  Note: the resulting value is an occurrence - meaning it is sorted
    *  and has no zero-entries.
    */
-  def subtract(x: Occurrences, y: Occurrences): Occurrences = ???
+  def subtract(x: Occurrences, y: Occurrences): Occurrences = y.foldLeft(x)((newx, elemy) =>
+      (for (elemx <- newx)
+        yield
+          // if element is in both occurences, fold saving count diff
+          if(elemx._1 == elemy._1)
+            (elemx._1, elemx._2 - elemy._2)
+          // else return left kv-pair
+          else elemx)
+      ).filter (_._2 > 0).sorted
 
   /** Returns a list of all anagram sentences of the given sentence.
    *  
@@ -134,6 +154,22 @@ object Anagrams {
    *
    *  Note: There is only one anagram of an empty sentence.
    */
-  def sentenceAnagrams(sentence: Sentence): List[Sentence] = ???
-
+  def sentenceAnagrams(sentence: Sentence): List[Sentence] = {
+    def occAnagrams(occurrences: Occurrences): List[Sentence] =
+    {
+      if (occurrences.isEmpty) List(Nil)
+      else for
+        {
+          // make combinations for occurence
+          comb <- combinations(occurrences)
+          // map all possible occurences considering their count
+          currentOccurences <- dictionaryByOccurrences getOrElse(comb, Nil)
+          // recursively find solution for others
+          otherOccurences <- occAnagrams(subtract(occurrences, wordOccurrences(currentOccurences)))
+          if comb.nonEmpty
+        }
+        yield currentOccurences :: otherOccurences
+    }
+    occAnagrams(sentenceOccurrences(sentence))
+ }
 }

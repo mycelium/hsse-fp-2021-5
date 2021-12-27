@@ -33,3 +33,4 @@ truth_table(A, B, Expr) :- boolean(A), boolean(B),
 % true true fail
 % true fail fail
 % fail true true
+% fail fail fail

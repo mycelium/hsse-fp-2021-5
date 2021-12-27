@@ -16,10 +16,10 @@
     brother(X,Y):- father(Z,X), father(Z,Y), X\=Y.
      % 2.
 
-cousin(X,Y):- father(Z,X), father(P,Y), brother(Z,P).
+    cousin(X,Y):- father(Z,X), father(P,Y), brother(Z,P).
      % 3.
 
-grandson(X,Y):- father(Y,Z), father(Z,X).
+    grandson(X,Y):- father(Y,Z), father(Z,X).
      % 4.
 
     descendent(X,Y):- father(Y,X).

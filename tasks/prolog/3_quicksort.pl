@@ -1,18 +1,13 @@
 % Определить предикат qsort(L, K) который для заданного списка целых чисел возвращает отсортированный 
-% L - in array, K - out array
 
-qsort([X|Xs],Ys) :-
-  partition(Xs,X,Left,Right),
-  qsort(Left,Ls),
-  qsort(Right,Rs),
-  append(Ls,[X|Rs],Ys), !.
-qsort([],[]).
-
-partition([X|Xs],Y,[X|Ls],Rs) :-
-  X =< Y, partition(Xs,Y,Ls,Rs).
-partition([X|Xs],Y,Ls,[X|Rs]) :-
-  X > Y, partition(Xs,Y,Ls,Rs).
-partition([],_,[],[]).
-
-append([],Ys,Ys).
-append([X|Xs],Ys,[X|Zs]) :- append(Xs,Ys,Zs).
+qsort([], []).
+qsort([Head|Tail], K) :- 
+	partition(Head, Tail, Less, More),
+	qsort(Less, SortedLess),
+	qsort(More, SortedMore),
+	append([SortedLess, [Head], SortedMore], K).
+	
+% Формируем два списка путем сравнивания с опорным элементом
+partition(Pivot, [Head|Tail], [Head|Less], More) :- Head =< Pivot, partition(Pivot, Tail, Less, More).
+partition(Pivot, [Head|Tail], Less, [Head|More]) :- Head > Pivot,  partition(Pivot, Tail, Less, More).
+partition(_, [], [], []).

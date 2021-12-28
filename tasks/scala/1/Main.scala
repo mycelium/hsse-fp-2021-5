@@ -1,5 +1,6 @@
 package recfun
 import common._
+import scala.annotation.tailrec
 
 object Main {
   def main(args: Array[String]) {
@@ -15,6 +16,8 @@ object Main {
    * Exercise 1
    */
   def pascal(c: Int, r: Int): Int = {
+    if (c == 0 || c == r) 1
+    else pascal(c - 1, r - 1) + pascal(c, r - 1)
 
   }
 
@@ -22,6 +25,15 @@ object Main {
    * Exercise 2 Parentheses Balancing
    */
   def balance(chars: List[Char]): Boolean = {
+    @tailrec
+    def count(chars: List[Char], acc: Int = 0): Boolean = {
+      if (chars.isEmpty) acc == 0
+      else if (chars.head.equals('(')) count(chars.tail, acc + 1)
+      else if (chars.head.equals(')')) acc > 0 && count(chars.tail, acc - 1)
+      else count(chars.tail, acc)
+    }
+
+    count(chars)
    
   }
 
@@ -33,6 +45,12 @@ object Main {
    * 2 and 3: 2+3.
    */
   def countChange(money: Int, coins: List[Int]): Int = {
+    def changeMoney(money: Int, coins: List[Int]): Int = {
+      if (money < 0 || coins.isEmpty) 0
+      else if (money == 0) 1
+      else changeMoney(money, coins.tail) + changeMoney(money - coins.head, coins)
+    }
 
+    changeMoney(money, coins)
   }
 }
